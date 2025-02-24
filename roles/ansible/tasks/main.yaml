@@ -1,0 +1,7 @@
+- name: Get OS Info
+  command: cat /etc/os-release
+  register: os_info
+    
+- name: Display OS Info
+  debug:
+    var: os_info.stdout_lines

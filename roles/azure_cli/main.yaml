@@ -1,0 +1,4 @@
+- name: Create temp directory if it doesn't exist
+  win_file:
+    path: C:\temp
+    state: directory

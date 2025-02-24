@@ -1,0 +1,28 @@
+
+- name: Update package lists
+  apt:
+    update_cache: yes
+
+- name: Install prerequisites
+  apt:
+    name: software-properties-common
+    state: present
+
+- name: Add Microsoft repository GPG key
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+
+- name: Add Microsoft package repository
+  apt_repository:
+    repo: deb [arch=amd64] https://packages.microsoft.com/ubuntu/20.04/prod focal main
+    state: present
+
+- name: Update package lists after adding Microsoft repository
+  apt:
+    update_cache: yes
+
+- name: Install PowerShell
+  apt:
+    name: powershell
+    state: present

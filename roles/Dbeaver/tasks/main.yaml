@@ -1,0 +1,14 @@
+
+- name: Create temp directory if not exists 
+  win_file: 
+    path: C:\temp 
+    state: directory
+
+- name: Download DBeaver installer 
+  win_get_url: 
+    url: https://dbeaver.io/files/dbeaver-ce-latest-x86_64-setup.exe 
+    dest: C:\temp\dbeaver-setup.exe
+
+- name: Install DBeaver silently 
+  win_shell: |
+    Start-Process -FilePath "C:\temp\dbeaver-setup.exe" -ArgumentList '/S', '/allusers', '/D=C:\Program Files\DBeaver' -NoNewWindow -Wait

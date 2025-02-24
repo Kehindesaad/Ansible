@@ -1,0 +1,11 @@
+- role: gantsign.java
+  vars:
+    java_version: '17'
+    java_is_default_installation: false
+    java_fact_group_name: java_17
+
+- role: gantsign.java
+  vars:
+    java_version: '21'
+    java_is_default_installation: true
+    java_fact_group_name: java_21

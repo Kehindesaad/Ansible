@@ -1,0 +1,14 @@
+
+- name: Create temp directory if not exists 
+  win_file: 
+    path: C:\temp 
+    state: directory
+
+- name: Download SSMS installer
+  win_get_url: 
+    url: https://aka.ms/ssmsfullsetup 
+    dest: C:\temp\SSMS-Setup-ENU.exe 
+    
+- name: Install SSMS silently 
+  win_shell: |
+    Start-Process -FilePath "C:\temp\SSMS-Setup-ENU.exe" -ArgumentList "/install", "/quiet", "/norestart" -NoNewWindow -Wait

@@ -1,0 +1,72 @@
+---
+- hosts: windows_vms
+  roles:
+    - Dbeaver
+
+- hosts: windows_vms
+  roles:
+    - sql_developer
+
+- hosts: windows_vms
+  roles:
+    - kafka_offset_explorer
+
+- hosts: windows_vms
+  roles:
+    - ssms
+
+- hosts: linux_vms
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - helm
+
+- hosts: linux_vms
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - docker
+
+- hosts: linux_vms
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - java
+
+- hosts: linux_vms
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - jq
+
+- hosts: linux_vms
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - kubectl
+
+- hosts: linux_vms
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - nodejs
+
+- hosts: linux_vms
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - podman
+
+- hosts: linux_vms
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - java

@@ -1,0 +1,25 @@
+
+- name: Update package cache (Debian)
+  apt:
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install Podman (Debian/Ubuntu)
+  apt:
+    name: podman
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Install Podman (RHEL/CentOS)
+  yum:
+    name: podman
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Verify Podman Installation
+  command: podman --version
+  register: podman_version
+
+- name: Show Podman Version
+  debug:
+    msg: "{{ podman_version.stdout }}"

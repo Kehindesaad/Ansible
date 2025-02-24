@@ -1,0 +1,30 @@
+
+- name: Install prerequisites
+  apt:
+    name: [curl, gnupg]
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Add Node.js 18.x repository (Ubuntu/Debian)
+  shell: curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+  when: ansible_os_family == "Debian"
+
+- name: Install Node.js 18.19.0 (Ubuntu/Debian)
+  apt:
+    name: nodejs
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Install Node.js 18.19.0 (RHEL/CentOS)
+  shell: |
+    curl -fsSL https://rpm.nodesource.com/setup_18.x | bash -
+    yum install -y nodejs
+  when: ansible_os_family == "RedHat"
+
+- name: Verify Node.js Installation
+  command: node -v
+  register: node_version
+
+- name: Show Node.js Version
+  debug:
+    msg: "Installed Node.js version: {{ node_version.stdout }}"

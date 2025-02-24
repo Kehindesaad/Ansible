@@ -1,0 +1,15 @@
+
+- name: Download jq 1.7 for Linux
+    get_url:
+      url: https://github.com/stedolan/jq/releases/download/jq-1.7/jq-linux64
+      dest: /usr/local/bin/jq
+      mode: '0755'
+
+- name: Verify jq installation
+  command: jq --version
+  register: jq_version
+  changed_when: false
+
+- name: Show jq version
+  debug:
+    msg: "jq version: {{ jq_version.stdout }}"

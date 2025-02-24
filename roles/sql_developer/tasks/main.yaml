@@ -1,0 +1,23 @@
+
+- name: Download SQL Developer with JDK 17 
+  win_get_url: 
+    url: https://download.oracle.com/otn_software/java/sqldeveloper/sqldeveloper-24.3.1.347.1826-x64.zip  
+    dest: C:\temp\sqldeveloper.zip
+
+- name: Ensure installation directory exists 
+  win_file: 
+    path: C:\Program Files\SQLDeveloper 
+    state: directory
+ 
+- name: Unzip SQL Developer
+  win_unzip: 
+    src: C:\temp\sqldeveloper.zip 
+    dest: C:\Program Files\SQLDeveloper 
+    remote_src: yes 
+
+- name: Create shortcut for SQL Developer
+  win_shortcut: 
+    src: C:\Program Files\SQLDeveloper\sqldeveloper\sqldeveloper.exe 
+    dest: C:\Users\Public\Desktop\SQLDeveloper.lnk 
+    description: "Oracle SQL Developer" 
+    icon: C:\Program Files\SQLDeveloper\sqldeveloper\sqldeveloper.exe

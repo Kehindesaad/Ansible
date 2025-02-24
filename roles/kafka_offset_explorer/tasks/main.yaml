@@ -1,0 +1,38 @@
+
+- name: Create temp directory if not exists 
+  win_file: 
+    path: C:\temp 
+    state: directory
+
+- name: Download Kafka Offset Explorer 
+  win_get_url: 
+    url: https://www.kafkatool.com/download3/offsetexplorer_64bit.exe 
+    dest: C:\temp\offsetexplorer_installer.exe 
+    force: yes
+
+- name: Install Kafka Offset Explorer
+  win_shell: | 
+    $installer = "C:\temp\offsetexplorer_installer.exe"
+    Write-Host "Starting installation at $(Get-Date)"
+    $process = Start-Process -FilePath $installer -ArgumentList "-q -overwrite -nofilefailures" -PassThru -Wait -NoNewWindow                                                      
+    if ($process.ExitCode -eq 0) {
+        Write-Host "Installation completed successfully at $(Get-Date)"
+    } else {
+        Write-Error "Installation failed with exit code $($process.ExitCode)"
+      exit 1
+    }
+  register: install_output
+
+- name: Verify Kafka Offset Explorer installation 
+  win_shell: | 
+    if (Test-Path "C:\Program Files\OffsetExplorer3\OffsetExplorer.exe") {
+      Write-Host "Kafka Offset Explorer installed successfully."
+    } else {
+      Write-Error "Installation failed. Offset Explorer executable not found!" 
+      exit 1
+    }
+  register: install_verification
+
+- name: Display installation output 
+  debug: 
+    var: install_output.stdout
